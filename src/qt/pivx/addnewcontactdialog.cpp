@@ -1,10 +1,10 @@
-// Copyright (c) 2019 The PIVX developers
+// Copyright (c) 2019 The EncoCoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qt/pivx/addnewcontactdialog.h"
-#include "qt/pivx/forms/ui_addnewcontactdialog.h"
-#include "qt/pivx/qtutils.h"
+#include "qt/encocoin/addnewcontactdialog.h"
+#include "qt/encocoin/forms/ui_addnewcontactdialog.h"
+#include "qt/encocoin/qtutils.h"
 
 AddNewContactDialog::AddNewContactDialog(QWidget *parent) :
     FocusedDialog(parent),

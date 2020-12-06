@@ -1,18 +1,18 @@
-// Copyright (c) 2019 The PIVX developers
+// Copyright (c) 2019 The EncoCoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef REQUESTDIALOG_H
 #define REQUESTDIALOG_H
 
-#include "qt/pivx/focuseddialog.h"
-#include "qt/pivx/snackbar.h"
+#include "qt/encocoin/focuseddialog.h"
+#include "qt/encocoin/snackbar.h"
 #include "walletmodel.h"
 
 #include <QPixmap>
 
 class WalletModel;
-class PIVXGUI;
+class EncoCoinGUI;
 
 namespace Ui {
 class RequestDialog;

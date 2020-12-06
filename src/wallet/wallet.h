@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2020 The PIVX developers
+// Copyright (c) 2015-2020 The EncoCoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,7 +21,7 @@
 #include "primitives/block.h"
 #include "primitives/transaction.h"
 #include "sapling/address.hpp"
-#include "zpiv/zerocoin.h"
+#include "zxnk/zerocoin.h"
 #include "guiinterface.h"
 #include "util.h"
 #include "util/memory.h"
@@ -30,9 +30,9 @@
 #include "wallet/scriptpubkeyman.h"
 #include "sapling/saplingscriptpubkeyman.h"
 #include "wallet/walletdb.h"
-#include "zpiv/zpivmodule.h"
-#include "zpiv/zpivwallet.h"
-#include "zpiv/zpivtracker.h"
+#include "zxnk/zxnkmodule.h"
+#include "zxnk/zxnkwallet.h"
+#include "zxnk/zxnktracker.h"
 
 #include <algorithm>
 #include <atomic>
@@ -105,7 +105,7 @@ enum WalletFeature {
     FEATURE_WALLETCRYPT = 40000, // wallet encryption
     FEATURE_COMPRPUBKEY = 60000, // compressed public keys
 
-    FEATURE_PRE_PIVX = 61000, // inherited version..
+    FEATURE_PRE_EncoCoin = 61000, // inherited version..
 
     // The following features were implemented in BTC but not in our wallet, we can simply skip them.
     // FEATURE_HD = 130000,  Hierarchical key derivation after BIP32 (HD Wallet)
@@ -124,25 +124,25 @@ enum AvailableCoinsType {
     STAKEABLE_COINS = 6                             // UTXO's that are valid for staking
 };
 
-// Possible states for zPIV send
+// Possible states for zXNK send
 enum ZerocoinSpendStatus {
-    ZPIV_SPEND_OKAY = 0,                            // No error
-    ZPIV_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
-    ZPIV_WALLET_LOCKED = 2,                         // Wallet was locked
-    ZPIV_COMMIT_FAILED = 3,                         // Commit failed, reset status
-    ZPIV_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
-    ZPIV_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
-    ZPIV_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
-    ZPIV_TRX_CREATE = 7,                            // Everything related to create the transaction
-    ZPIV_TRX_CHANGE = 8,                            // Everything related to transaction change
-    ZPIV_TXMINT_GENERAL = 9,                        // General errors in MintsToInputVectorPublicSpend
-    ZPIV_INVALID_COIN = 10,                         // Selected mint coin is not valid
-    ZPIV_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
-    ZPIV_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
-    ZPIV_BAD_SERIALIZATION = 13,                    // Transaction verification failed
-    ZPIV_SPENT_USED_ZPIV = 14,                      // Coin has already been spend
-    ZPIV_TX_TOO_LARGE = 15,                         // The transaction is larger than the max tx size
-    ZPIV_SPEND_V1_SEC_LEVEL                         // Spend is V1 and security level is not set to 100
+    ZXNK_SPEND_OKAY = 0,                            // No error
+    ZXNK_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
+    ZXNK_WALLET_LOCKED = 2,                         // Wallet was locked
+    ZXNK_COMMIT_FAILED = 3,                         // Commit failed, reset status
+    ZXNK_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
+    ZXNK_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
+    ZXNK_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
+    ZXNK_TRX_CREATE = 7,                            // Everything related to create the transaction
+    ZXNK_TRX_CHANGE = 8,                            // Everything related to transaction change
+    ZXNK_TXMINT_GENERAL = 9,                        // General errors in MintsToInputVectorPublicSpend
+    ZXNK_INVALID_COIN = 10,                         // Selected mint coin is not valid
+    ZXNK_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
+    ZXNK_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
+    ZXNK_BAD_SERIALIZATION = 13,                    // Transaction verification failed
+    ZXNK_SPENT_USED_ZXNK = 14,                      // Coin has already been spend
+    ZXNK_TX_TOO_LARGE = 15,                         // The transaction is larger than the max tx size
+    ZXNK_SPEND_V1_SEC_LEVEL                         // Spend is V1 and security level is not set to 100
 };
 
 /** A key pool entry */
@@ -287,7 +287,7 @@ private:
     bool IsKeyUsed(const CPubKey& vchPubKey);
 
     // Zerocoin wallet
-    CzPIVWallet* zwallet{nullptr};
+    CzXNKWallet* zwallet{nullptr};
 
 public:
 
@@ -336,7 +336,7 @@ public:
     // Staker status (last hashed block and time)
     CStakerStatus* pStakerStatus = nullptr;
 
-    // User-defined fee PIV/kb
+    // User-defined fee XNK/kb
     bool fUseCustomFee;
     CAmount nCustomFee;
 
@@ -402,7 +402,7 @@ public:
 
     std::map<CTxDestination, std::vector<COutput> > AvailableCoinsByAddress(bool fConfirmed = true, CAmount maxCoinValue = 0);
 
-    /// Get 10000 PIV output and keys which can be used for the Masternode
+    /// Get 10000 XNK output and keys which can be used for the Masternode
     bool GetMasternodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet,
             CKey& keyRet, std::string strTxHash, std::string strOutputIndex, std::string& strError);
     /// Extract txin information and keys from output
@@ -705,12 +705,12 @@ public:
     bool AddDeterministicSeed(const uint256& seed);
 
     // Par of the tx rescan process
-    void doZPivRescan(const CBlockIndex* pindex, const CBlock& block, std::set<uint256>& setAddedToWallet, const Consensus::Params& consensus, bool fCheckZPIV);
+    void doZPivRescan(const CBlockIndex* pindex, const CBlock& block, std::set<uint256>& setAddedToWallet, const Consensus::Params& consensus, bool fCheckZXNK);
 
     //- ZC Mints (Only for regtest)
     std::string MintZerocoin(CAmount nValue, CWalletTx& wtxNew, std::vector<CDeterministicMint>& vDMints, const CCoinControl* coinControl = NULL);
     std::string MintZerocoinFromOutPoint(CAmount nValue, CWalletTx& wtxNew, std::vector<CDeterministicMint>& vDMints, const std::vector<COutPoint> vOutpts);
-    bool CreateZPIVOutPut(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
+    bool CreateZXNKOutPut(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
     bool CreateZerocoinMintTransaction(const CAmount nValue,
             CMutableTransaction& txNew,
             std::vector<CDeterministicMint>& vDMints,
@@ -737,10 +737,10 @@ public:
     CAmount GetImmatureZerocoinBalance() const;
     std::map<libzerocoin::CoinDenomination, CAmount> GetMyZerocoinDistribution() const;
 
-    // zPIV wallet
-    std::unique_ptr<CzPIVTracker> zpivTracker{nullptr};
-    void setZWallet(CzPIVWallet* zwallet);
-    CzPIVWallet* getZWallet();
+    // zXNK wallet
+    std::unique_ptr<CzXNKTracker> zxnkTracker{nullptr};
+    void setZWallet(CzXNKWallet* zwallet);
+    CzXNKWallet* getZWallet();
     bool IsMyZerocoinSpend(const CBigNum& bnSerial) const;
     bool IsMyMint(const CBigNum& bnValue) const;
     void ReconsiderZerocoins(std::list<CZerocoinMint>& listMintsRestored, std::list<CDeterministicMint>& listDMintsRestored);

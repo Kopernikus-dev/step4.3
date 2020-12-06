@@ -1,12 +1,12 @@
-// Copyright (c) 2019-2020 The PIVX developers
+// Copyright (c) 2019-2020 The EncoCoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_CORE_NEW_GUI_PIVXGUI_H
-#define PIVX_CORE_NEW_GUI_PIVXGUI_H
+#ifndef EncoCoin_CORE_NEW_GUI_EncoCoinGUI_H
+#define EncoCoin_CORE_NEW_GUI_EncoCoinGUI_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/pivx-config.h"
+#include "config/encocoin-config.h"
 #endif
 
 #include <QMainWindow>
@@ -14,16 +14,16 @@
 #include <QSystemTrayIcon>
 #include <QLabel>
 
-#include "qt/pivx/navmenuwidget.h"
-#include "qt/pivx/topbar.h"
-#include "qt/pivx/dashboardwidget.h"
-#include "qt/pivx/send.h"
-#include "qt/pivx/receivewidget.h"
-#include "qt/pivx/addresseswidget.h"
-#include "qt/pivx/coldstakingwidget.h"
-#include "qt/pivx/masternodeswidget.h"
-#include "qt/pivx/snackbar.h"
-#include "qt/pivx/settings/settingswidget.h"
+#include "qt/encocoin/navmenuwidget.h"
+#include "qt/encocoin/topbar.h"
+#include "qt/encocoin/dashboardwidget.h"
+#include "qt/encocoin/send.h"
+#include "qt/encocoin/receivewidget.h"
+#include "qt/encocoin/addresseswidget.h"
+#include "qt/encocoin/coldstakingwidget.h"
+#include "qt/encocoin/masternodeswidget.h"
+#include "qt/encocoin/snackbar.h"
+#include "qt/encocoin/settings/settingswidget.h"
 #include "qt/rpcconsole.h"
 
 
@@ -34,18 +34,18 @@ class WalletModel;
 
 
 /**
-  PIVX GUI main class. This class represents the main window of the PIVX UI. It communicates with both the client and
+  EncoCoin GUI main class. This class represents the main window of the EncoCoin UI. It communicates with both the client and
   wallet models to give the user an up-to-date view of the current core state.
 */
-class PIVXGUI : public QMainWindow
+class EncoCoinGUI : public QMainWindow
 {
     Q_OBJECT
 
 public:
     static const QString DEFAULT_WALLET;
 
-    explicit PIVXGUI(const NetworkStyle* networkStyle, QWidget* parent = 0);
-    ~PIVXGUI();
+    explicit EncoCoinGUI(const NetworkStyle* networkStyle, QWidget* parent = 0);
+    ~EncoCoinGUI();
 
     /** Set the client model.
         The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
@@ -189,4 +189,4 @@ Q_SIGNALS:
 };
 
 
-#endif //PIVX_CORE_NEW_GUI_PIVXGUI_H
+#endif //EncoCoin_CORE_NEW_GUI_EncoCoinGUI_H

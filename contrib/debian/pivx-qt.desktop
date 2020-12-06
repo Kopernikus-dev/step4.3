@@ -1,13 +1,13 @@
 [Desktop Entry]
 Version=1.0
-Name=PIVX Core
-Comment=PIVX P2P Cryptocurrency
-Comment[fr]=PIVX, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=PIVX, eşten eşe kriptografik sanal para birimi
-Exec=pivx-qt %u
+Name=EncoCoin Core
+Comment=EncoCoin P2P Cryptocurrency
+Comment[fr]=EncoCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=EncoCoin, eşten eşe kriptografik sanal para birimi
+Exec=encocoin-qt %u
 Terminal=false
 Type=Application
-Icon=pivx128
-MimeType=x-scheme-handler/pivx;
+Icon=encocoin128
+MimeType=x-scheme-handler/encocoin;
 Categories=Office;Finance;
 StartupWMClass=Pivx-qt

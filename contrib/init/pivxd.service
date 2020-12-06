@@ -5,19 +5,19 @@
 # See "man systemd.service" for details.
 
 # Note that almost all daemon options could be specified in
-# /etc/pivx/pivx.conf
+# /etc/encocoin/encocoin.conf
 
 [Unit]
-Description=PIVX daemon
+Description=EncoCoin daemon
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/pivxd -daemon -conf=/etc/pivx/pivx.conf -pid=/run/pivxd/pivxd.pid
-# Creates /run/pivxd owned by pivx
-RuntimeDirectory=pivxd
-User=pivx
+ExecStart=/usr/bin/encocoind -daemon -conf=/etc/encocoin/encocoin.conf -pid=/run/encocoind/encocoind.pid
+# Creates /run/encocoind owned by encocoin
+RuntimeDirectory=encocoind
+User=encocoin
 Type=forking
-PIDFile=/run/pivxd/pivxd.pid
+PIDFile=/run/encocoind/encocoind.pid
 Restart=on-failure
 
 # Hardening measures

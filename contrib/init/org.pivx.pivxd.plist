@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>dev.kopernikus.pivxd</string>
+	<string>dev.kopernikus.encocoind</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/pivxd</string>
+		<string>/usr/local/bin/encocoind</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
