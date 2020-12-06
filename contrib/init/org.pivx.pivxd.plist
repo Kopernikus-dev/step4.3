@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>org.pivx.pivxd</string>
+	<string>dev.kopernikus.pivxd</string>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/usr/local/bin/pivxd</string>
