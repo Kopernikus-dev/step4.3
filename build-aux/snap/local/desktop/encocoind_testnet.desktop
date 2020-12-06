@@ -13,3 +13,4 @@ MimeType=x-scheme-handler/xnk;
 Categories=X-Office;X-Finance;
 Keywords=internet;encocoin;zxnk;core;wallet;daemon;testnet;snap;launchpad;crypto;digital;currency;coin;token;zerocoin;
 Version=1.0
+Name[de_DE]=encocoind_testnet.desktop
