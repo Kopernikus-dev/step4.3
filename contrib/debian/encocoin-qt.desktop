@@ -9,4 +9,3 @@ Icon=encocoin128
 MimeType=x-scheme-handler/encocoin;
 Categories=Office;Finance;
 StartupWMClass=EncoCoin-qt
-Name[de_DE]=encocoin-qt.desktop
