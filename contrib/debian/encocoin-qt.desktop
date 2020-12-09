@@ -8,5 +8,5 @@ Type=Application
 Icon=encocoin128
 MimeType=x-scheme-handler/encocoin;
 Categories=Office;Finance;
-StartupWMClass=Pivx-qt
+StartupWMClass=EncoCoin-qt
 Name[de_DE]=encocoin-qt.desktop
